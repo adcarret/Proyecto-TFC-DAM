@@ -15,9 +15,12 @@ import com.example.taskshare_tfc.ui.theme.TaskShareTFCTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        //ESTO ES UNA PRUEBA DE SUBIDA
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            println("Hello")
             TaskShareTFCTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
