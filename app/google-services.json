@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "99638725560",
+    "project_id": "proyecto-taskshare-tfc",
+    "storage_bucket": "proyecto-taskshare-tfc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99638725560:android:a01bff51322ae1deca5d4d",
+        "android_client_info": {
+          "package_name": "com.example.taskshare_tfc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5EFHiv0NC3QvC_A3cfR1U7rrPme5RmBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
