@@ -27,9 +27,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.taskshare_tfc.R
-
+/*
+Estoy utilizando Jetpack Compose
+Por eso mismo sale este @
+ */
 @Composable
-
 fun LoginView (){
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,

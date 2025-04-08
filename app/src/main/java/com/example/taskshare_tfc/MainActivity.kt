@@ -9,7 +9,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.taskshare_tfc.ui.theme.TaskShareTFCTheme
 import com.example.taskshare_tfc.views.login.LoginView
-
+/**
+ * Autor: Adrián Carretero Alcázar
+ * Fecha de creación: 6 Abril 2025
+ * Versión: 1.0
+ * Descripción: Este archivo contiene el main de la App.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
