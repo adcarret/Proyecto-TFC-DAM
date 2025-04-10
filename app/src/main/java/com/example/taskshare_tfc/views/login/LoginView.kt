@@ -26,13 +26,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.taskshare_tfc.R
+import com.example.taskshare_tfc.viewModels.LoginViewModel
+
 /*
 Estoy utilizando Jetpack Compose
 Por eso mismo sale este @
  */
 @Composable
-fun LoginView (){
+fun LoginView (navController: NavController, loginViewModel: LoginViewModel){
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -95,7 +98,10 @@ fun LoginView (){
 
         //Botón de registro
         Button(
-            onClick = {/*TODO*/},
+            //este evento nos lleva a la pantalla de registro
+            onClick = {
+                navController.navigate("Register")
+            },
             modifier = Modifier.fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp)){
             Text(text = "Registrarme")
