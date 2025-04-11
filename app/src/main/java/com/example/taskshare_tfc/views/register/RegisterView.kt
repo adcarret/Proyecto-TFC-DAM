@@ -1,5 +1,6 @@
 package com.example.taskshare_tfc.views.register
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,6 +40,8 @@ fun RegisterView(navController: NavController, registerViewModel: RegisterViewMo
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ){
+        val context = LocalContext.current
+
         var email by remember { mutableStateOf("") } //Inicilizo la variable email
         var password by remember { mutableStateOf("") }//Inicializo la variable password
         var username by remember { mutableStateOf("") }//Inicializo la variable username
@@ -94,7 +98,38 @@ fun RegisterView(navController: NavController, registerViewModel: RegisterViewMo
         Spacer(modifier = Modifier.height(20.dp))
 
         //Botón de registro
-        Button(onClick = {/*TODO*/},
+        Button(onClick = {
+            if (username.isBlank()) {
+                Toast.makeText(
+                    context,
+                    "El nombre de usuario no puede estar vacío.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            if (email.isBlank() || !email.contains("@")) {
+                Toast.makeText(
+                    context,
+                    "Introduce un email válido.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            if (password.length < 6) {
+                Toast.makeText(
+                    context,
+                    "La contraseña debe tener al menos 6 caracteres.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            // ✅ NUEVO: Solo si todos los campos son válidos, registramos
+            if (email.isNotBlank() && email.contains("@") && password.length >= 6 && username.isNotBlank()) {
+                registerViewModel.createUser(username, email, password) {
+                    navController.navigate("Home")
+                }
+            }
+        },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 30.dp, end = 30.dp)
