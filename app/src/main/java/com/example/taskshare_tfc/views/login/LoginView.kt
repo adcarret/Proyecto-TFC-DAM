@@ -146,7 +146,7 @@ fun LoginView (navController: NavController, loginViewModel: LoginViewModel) {
                 }
 
                 if (isValid) {
-                    // Si todo es válido, hacer login
+                    // Si todo es true, hacer login
                     loginViewModel.login(email, password) {
                         navController.navigate("Home")
                     }
