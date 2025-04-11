@@ -9,6 +9,7 @@ import com.example.taskshare_tfc.viewModels.RegisterViewModel
 import com.example.taskshare_tfc.viewModels.TareasViewModel
 import com.example.taskshare_tfc.views.login.LoginView
 import com.example.taskshare_tfc.views.register.RegisterView
+import com.example.taskshare_tfc.views.tareas.HomeView
 
 //Navegar entre las diferentes interfaces de nuestra app
 /*
@@ -34,6 +35,10 @@ fun NavManager(
 
         composable("Register"){
             RegisterView(navController, registerVM)
+        }
+
+        composable("Home"){
+            HomeView(navController, notesVM)
         }
     }
 }
