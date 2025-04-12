@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.taskshare_tfc.viewModels.LoginViewModel
 import com.example.taskshare_tfc.viewModels.RegisterViewModel
 import com.example.taskshare_tfc.viewModels.TareasViewModel
+import com.example.taskshare_tfc.views.login.CheckSessionView
 import com.example.taskshare_tfc.views.login.LoginView
 import com.example.taskshare_tfc.views.register.RegisterView
 import com.example.taskshare_tfc.views.tareas.HomeView
@@ -28,7 +29,11 @@ fun NavManager(
     val navController = rememberNavController()
 
     //Cuando se inicie la app mostraremos por defecto la pantalla del Login
-    NavHost(navController = navController, startDestination = "Login" ){
+    NavHost(navController = navController, startDestination = "CheckSession" ){
+
+        composable("CheckSession"){
+            CheckSessionView(navController)
+        }
         composable("Login"){
             LoginView(navController, loginVM)
         }
