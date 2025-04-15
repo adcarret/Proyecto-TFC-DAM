@@ -2,6 +2,7 @@ package com.example.taskshare_tfc.views.tareas
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -111,7 +112,10 @@ fun AddTaskView(navController: NavController, tareasViewModel: TareasViewModel) 
 
             Button(
                 onClick = {
-                    // tareasViewModel.addTask(title, descriptions, selectedDate, selectedTime)
+                    tareasViewModel.saveTask(title, descriptions){
+                        Toast.makeText(context, "Tarea guardada", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
