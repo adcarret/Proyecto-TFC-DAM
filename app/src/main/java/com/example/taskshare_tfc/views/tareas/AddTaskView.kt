@@ -112,9 +112,13 @@ fun AddTaskView(navController: NavController, tareasViewModel: TareasViewModel) 
 
             Button(
                 onClick = {
-                    tareasViewModel.saveTask(title, descriptions, selectedDate, selectedTime){
-                        Toast.makeText(context, "Tarea guardada", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()
+                    if (title.isBlank() || descriptions.isBlank() || selectedDate.isBlank() || selectedTime.isBlank()) {
+                        Toast.makeText(context, "Por favor completa todos los campos.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        tareasViewModel.saveTask(title, descriptions, selectedDate, selectedTime) {
+                            Toast.makeText(context, "Tarea guardada", Toast.LENGTH_SHORT).show()
+                            navController.popBackStack()
+                        }
                     }
                 },
                 modifier = Modifier
