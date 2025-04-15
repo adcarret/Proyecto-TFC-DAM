@@ -20,7 +20,7 @@ class TareasViewModel : ViewModel() {
     private val firestore = Firebase.firestore //BBDD
 
 
-    fun saveTask(title : String, description : String, onSuccess : () -> Unit){
+    fun saveTask(title : String, description : String,  selectedDate: String, selectedTime: String, onSuccess : () -> Unit){
         val email = auth.currentUser?.email //Obtengo el correo del user
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -28,7 +28,7 @@ class TareasViewModel : ViewModel() {
                 val tarea = hashMapOf(
                     "title" to title,
                     "description" to description,
-                    "date" to formatDate(),
+                    "date" to "$selectedDate $selectedTime",
                     "email" to email.toString().trim()
                 )
 

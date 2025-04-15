@@ -112,7 +112,7 @@ fun AddTaskView(navController: NavController, tareasViewModel: TareasViewModel) 
 
             Button(
                 onClick = {
-                    tareasViewModel.saveTask(title, descriptions){
+                    tareasViewModel.saveTask(title, descriptions, selectedDate, selectedTime){
                         Toast.makeText(context, "Tarea guardada", Toast.LENGTH_SHORT).show()
                         navController.popBackStack()
                     }
