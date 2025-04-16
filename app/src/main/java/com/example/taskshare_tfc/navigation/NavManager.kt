@@ -12,6 +12,7 @@ import com.example.taskshare_tfc.views.login.LoginView
 import com.example.taskshare_tfc.views.register.RegisterView
 import com.example.taskshare_tfc.views.tareas.AddTaskView
 import com.example.taskshare_tfc.views.tareas.HomeView
+import com.example.taskshare_tfc.views.tareas.allTasksView
 
 //Navegar entre las diferentes interfaces de nuestra app
 /*
@@ -49,6 +50,10 @@ fun NavManager(
 
         composable("AddTask"){
             AddTaskView(navController, notesVM)
+        }
+
+        composable("AllTasks"){
+            allTasksView(navController, notesVM)
         }
     }
 }
