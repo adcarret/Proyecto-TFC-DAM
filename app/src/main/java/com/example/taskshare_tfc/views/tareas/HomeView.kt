@@ -40,7 +40,7 @@ fun HomeView(navController: NavController, notesVM : TareasViewModel){
     ){padding ->
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally) {
-
+            //Botón agregar una tarea
             Button(onClick = {
                 navController.navigate("AddTask")
             },
@@ -48,6 +48,17 @@ fun HomeView(navController: NavController, notesVM : TareasViewModel){
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp)) {
                 Text(text = "Agregar tarea")
+
+            }
+
+            //Ver mis tareas
+            Button(onClick = {
+                navController.navigate("AllTasks")
+            },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)) {
+                Text(text = "Ver mis tareas")
 
             }
 
