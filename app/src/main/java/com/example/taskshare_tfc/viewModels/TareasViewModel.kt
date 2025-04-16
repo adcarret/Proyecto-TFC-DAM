@@ -3,11 +3,16 @@ package com.example.taskshare_tfc.viewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskshare_tfc.models.TaskModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -18,6 +23,9 @@ class TareasViewModel : ViewModel() {
 
     private val auth : FirebaseAuth = Firebase.auth //Autenticación
     private val firestore = Firebase.firestore //BBDD
+
+    private val _taskData = MutableStateFlow<List<TaskModel>>(emptyList())
+    val taskData : StateFlow<List<TaskModel>> = _taskData
 
 
     fun saveTask(title : String, description : String,  selectedDate: String, selectedTime: String, onSuccess : () -> Unit){
@@ -44,6 +52,29 @@ class TareasViewModel : ViewModel() {
             }
 
         }
+    }
+
+    fun getTasks(){
+        val email = auth.currentUser?.email //obtengo el correo del usuario
+
+        firestore.collection("Tasks")//Nombre de la bbdd en firebase
+            .whereEqualTo("email", email.toString())
+            //Ordeno las notas por fecha en orden descendente
+            .orderBy("date", Query.Direction.DESCENDING)
+            .addSnapshotListener { query, error ->
+                if(error != null){
+                    return@addSnapshotListener
+                }
+                val tasks = mutableListOf<TaskModel>()
+                if(query != null){
+                    for(task in query){
+                        val myTask = task.toObject(TaskModel::class.java)
+                            .copy(idTask = task.id)
+                        tasks.add(myTask)
+                    }
+                }
+                _taskData.value = tasks
+            }
     }
 
     private fun formatDate() : String{
