@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.taskshare_tfc.components.cardTask
 import com.example.taskshare_tfc.viewModels.TareasViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,10 +55,10 @@ fun allTasksView(navController: NavController, tareasViewModel: TareasViewModel)
 
             LazyColumn {
                 items(task){item ->
-                    Text(text = item.email)
-                    Text(text = item.title)
-                    Text(text = item.description)
-                    Text(text = item.date)
+                    cardTask(
+                        title = item.title,
+                        description = item.description,
+                        date = item.date) { }
                 }
             }
         }
