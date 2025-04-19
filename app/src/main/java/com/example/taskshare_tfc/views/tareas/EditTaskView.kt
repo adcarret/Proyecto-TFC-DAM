@@ -126,7 +126,12 @@ fun EditTaskView(
             // Botón para actualizar tarea
             Button(
                 onClick = {
+                    // Actualizar el campo date del state
+                    tareasViewModel.updateDate("$selectedDate $selectedTime")
 
+                    tareasViewModel.editTask(idTask){
+                        navController.popBackStack()
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
