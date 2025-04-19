@@ -58,7 +58,10 @@ fun allTasksView(navController: NavController, tareasViewModel: TareasViewModel)
                     cardTask(
                         title = item.title,
                         description = item.description,
-                        date = item.date) { }
+                        date = item.date) {
+
+                        navController.navigate("EditTask/${item.idTask}")
+                    }
                 }
             }
         }
