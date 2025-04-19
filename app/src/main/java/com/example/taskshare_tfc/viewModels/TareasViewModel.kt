@@ -104,6 +104,32 @@ class TareasViewModel : ViewModel() {
                 }
             }
     }
+
+    fun updateDate(date: String) {
+        state = state.copy(date = date)
+    }
+
+    fun editTask(idTask : String, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val editTask = hashMapOf(
+                    "title" to state.title,
+                    "description" to state.description,
+                    "date" to state.date
+                )
+
+                firestore.collection("Tasks").document(idTask)
+                    .update(editTask as Map<String, Any>)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }.addOnFailureListener{e->
+                        Log.d("Error", "${e.message}")
+                    }
+            }catch (e:Exception){
+                Log.d("Error al editar", "${e.message}")
+            }
+        }
+    }
     private fun formatDate() : String{
         val currentDate : Date = Calendar.getInstance().time
         val formatDate = SimpleDateFormat("dd/MM/yyyy hh:mm:a", Locale.getDefault())
