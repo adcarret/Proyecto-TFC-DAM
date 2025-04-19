@@ -130,6 +130,26 @@ class TareasViewModel : ViewModel() {
             }
         }
     }
+
+    fun deleteTask(idTask: String, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                firestore.collection("Tasks").document(idTask)
+                    .delete()
+                    .addOnSuccessListener {
+                        getTaskId(idTask)//añado esto. Si falla se puede borrar
+                        onSuccess()
+                    }
+                    .addOnFailureListener{e->
+                        Log.d("Error al eliminar", "${e.message}")
+                    }
+            }catch (e:Exception){
+                Log.d("Error al eliminar", "${e.message}")
+            }
+        }
+    }
+
+
     private fun formatDate() : String{
         val currentDate : Date = Calendar.getInstance().time
         val formatDate = SimpleDateFormat("dd/MM/yyyy hh:mm:a", Locale.getDefault())
