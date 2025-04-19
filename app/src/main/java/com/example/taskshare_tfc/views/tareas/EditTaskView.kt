@@ -28,6 +28,8 @@ fun EditTaskView(
 
     var selectedDate by remember { mutableStateOf("") }
     var selectedTime by remember { mutableStateOf("") }
+   // var showDialog by remember { mutableStateOf(false) }
+
 
     val state = tareasViewModel.state
 
@@ -42,6 +44,29 @@ fun EditTaskView(
             selectedTime = parts.getOrNull(1) ?: ""
         }
     }
+    /*
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Confirmar eliminación") },
+            text = { Text("¿Estás seguro de que deseas eliminar esta tarea?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDialog = false
+                    tareasViewModel.deleteTask(idTask) {
+                        navController.popBackStack()
+                    }
+                }) {
+                    Text("Eliminar")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text("Cancelar")
+                }
+            }
+        )
+    }*/
 
     Scaffold(
         topBar = {
@@ -140,6 +165,18 @@ fun EditTaskView(
                 Text("Actualizar tarea")
             }
 
+            //Botón para eliminar tareas
+            Button(onClick = {
+                tareasViewModel.deleteTask(idTask){
+                    tareasViewModel.getTaskId(idTask) // <- Forzamos la recarga
+                    navController.popBackStack()
+                }
+            },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)) {
+                Text(text = "Eliminar tarea")
+            }
 
         }
     }
