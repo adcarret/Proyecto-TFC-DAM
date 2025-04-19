@@ -1,6 +1,9 @@
 package com.example.taskshare_tfc.viewModels
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskshare_tfc.models.TaskModel
@@ -26,6 +29,16 @@ class TareasViewModel : ViewModel() {
 
     private val _taskData = MutableStateFlow<List<TaskModel>>(emptyList())
     val taskData : StateFlow<List<TaskModel>> = _taskData
+
+    var state by mutableStateOf(TaskModel())
+        private set
+
+    fun onValue(value : String, text : String){
+        when(text){
+            "title" -> state = state.copy(title = value)
+            "description" -> state = state.copy(description = value)
+        }
+    }
 
 
     fun saveTask(title : String, description : String,  selectedDate: String, selectedTime: String, onSuccess : () -> Unit){
@@ -77,6 +90,20 @@ class TareasViewModel : ViewModel() {
             }
     }
 
+    fun getTaskId(idTask : String){
+        firestore.collection("Tasks")
+            .document(idTask)
+            .addSnapshotListener{snapshot, error ->
+                if(snapshot != null){
+                    val task = snapshot.toObject(TaskModel::class.java)
+                    state = state.copy(
+                        title = task?.title?: "",
+                        description = task?.description?: "",
+                        date = task?.date ?: ""
+                    )
+                }
+            }
+    }
     private fun formatDate() : String{
         val currentDate : Date = Calendar.getInstance().time
         val formatDate = SimpleDateFormat("dd/MM/yyyy hh:mm:a", Locale.getDefault())
