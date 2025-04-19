@@ -53,7 +53,7 @@ fun cardTask(
             //Fecha y hora de nuestra tarea
             Text(text = date, color = White)
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = {}) {
+            IconButton(onClick = {onClick()}) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "",
