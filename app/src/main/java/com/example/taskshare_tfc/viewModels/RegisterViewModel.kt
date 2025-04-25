@@ -43,27 +43,31 @@ class RegisterViewModel : ViewModel() {
         val id = auth.currentUser?.uid
         val email = auth.currentUser?.email
 
-        viewModelScope.launch (Dispatchers.IO){
-            /*
-            Modelo para mapearlo
-            de la BBDD
-             */
+        if (id != null && email != null) {
             val user = UserModel(
-                userId = id.toString(),
-                email = email.toString(),
+                userId = id,
+                email = email,
                 username = username
             )
-            //Le damos el nombre de la bbdd Users
-            FirebaseFirestore.getInstance().collection("Users")
-                .add(user)
-                .addOnSuccessListener {
-                    Log.d("Succes", "Se guardó la información del usuario")
-                }
-                .addOnFailureListener {e ->
-                    Log.d("Error", "${e.message}")
-                }
+
+            viewModelScope.launch(Dispatchers.IO) {
+                FirebaseFirestore.getInstance().collection("Users")
+                    .document(id!!) // Usamos el UID como ID del documento
+                    .set(user)
+                    .addOnSuccessListener {
+                        Log.d("Succes", "Se guardó la información del usuario")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.d("Error", "${e.message}")
+                    }
+            }
+        } else {
+            Log.d("Error", "auth.currentUser es null")
         }
     }
+
+
+
 }
 
 
