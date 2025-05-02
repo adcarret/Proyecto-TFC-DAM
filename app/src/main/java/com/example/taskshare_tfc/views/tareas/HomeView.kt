@@ -89,12 +89,16 @@ fun HomeView(navController: NavController, notesVM : TareasViewModel){
 
             )
 
-            Button(onClick = {}, modifier = Modifier.fillMaxWidth()
+            /*Botón para agregar un contacto*/
+            Button(onClick = {
+                navController.navigate("AddContact")
+            }, modifier = Modifier.fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp)) {
 
                 Text(text = "Agregar contacto")
             }
 
+            /*Botón para visualizar los contacto*/
             Button(onClick = {}, modifier = Modifier.fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp)) {
 
