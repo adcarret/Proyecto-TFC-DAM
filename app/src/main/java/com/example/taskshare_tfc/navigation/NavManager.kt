@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.taskshare_tfc.viewModels.LoginViewModel
 import com.example.taskshare_tfc.viewModels.RegisterViewModel
 import com.example.taskshare_tfc.viewModels.TareasViewModel
+import com.example.taskshare_tfc.views.contacts.AddContactsView
 import com.example.taskshare_tfc.views.login.CheckSessionView
 import com.example.taskshare_tfc.views.login.LoginView
 import com.example.taskshare_tfc.views.register.RegisterView
@@ -66,6 +67,10 @@ fun NavManager(
         )){
             val idTask = it.arguments?.getString("idTask")?: ""
             EditTaskView(navController, notesVM, idTask)
+        }
+
+        composable("AddContact"){
+            AddContactsView()
         }
     }
 }
