@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModel
 import com.example.taskshare_tfc.navigation.NavManager
 import com.example.taskshare_tfc.ui.theme.TaskShareTFCTheme
+import com.example.taskshare_tfc.viewModels.ContactsViewModel
 import com.example.taskshare_tfc.viewModels.LoginViewModel
 import com.example.taskshare_tfc.viewModels.RegisterViewModel
 import com.example.taskshare_tfc.viewModels.TareasViewModel
@@ -25,6 +27,7 @@ class MainActivity : ComponentActivity() {
     val loginVM : LoginViewModel by viewModels()
     val registerVM : RegisterViewModel by viewModels()
     val notesVM : TareasViewModel by viewModels()
+    val contactVM : ContactsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +35,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TaskShareTFCTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    NavManager(loginVM, registerVM, notesVM)
+                    NavManager(loginVM, registerVM, notesVM, contactVM)
                 }
             }
         }
