@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.taskshare_tfc.viewModels.ContactsViewModel
 import com.example.taskshare_tfc.viewModels.LoginViewModel
 import com.example.taskshare_tfc.viewModels.RegisterViewModel
 import com.example.taskshare_tfc.viewModels.TareasViewModel
@@ -30,7 +31,8 @@ De eso se encarga este file
 fun NavManager(
     loginVM: LoginViewModel,
     registerVM : RegisterViewModel, //Antes ponia LoginViewModel
-    notesVM : TareasViewModel
+    notesVM : TareasViewModel,
+    contactsVM: ContactsViewModel
 ){
     val navController = rememberNavController()
 
@@ -70,7 +72,7 @@ fun NavManager(
         }
 
         composable("AddContact"){
-            AddContactsView()
+            AddContactsView(navController, contactsVM)
         }
     }
 }
