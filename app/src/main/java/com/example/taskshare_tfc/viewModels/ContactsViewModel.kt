@@ -3,16 +3,23 @@ package com.example.taskshare_tfc.viewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskshare_tfc.models.ContactModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ContactsViewModel : ViewModel() {
     private val auth = Firebase.auth
     private val firestore = Firebase.firestore
 
+    private val _contactData = MutableStateFlow<List<ContactModel>>(emptyList())
+    val contactData : StateFlow<List<ContactModel>> = _contactData
 
     fun saveContact(
         names : String,
@@ -50,6 +57,31 @@ class ContactsViewModel : ViewModel() {
 
 
 
+    }
+
+    fun getContacts(){
+        val myEmail = auth.currentUser?.email
+
+        firestore.collection("Contacts")
+            .whereEqualTo("myEmail", myEmail.toString())
+            .orderBy("names", Query.Direction.ASCENDING)
+            .addSnapshotListener{query, error ->
+
+                if(error != null){
+                    return@addSnapshotListener
+                }
+
+                val contacts = mutableListOf<ContactModel>()
+
+                if(query != null){
+                    for (contact in query){
+                        val myContacts = contact.toObject(ContactModel::class.java)
+                            .copy(idContact = contact.id)
+                        contacts.add(myContacts)
+                    }
+                }
+                _contactData.value = contacts
+            }
     }
 
 }
