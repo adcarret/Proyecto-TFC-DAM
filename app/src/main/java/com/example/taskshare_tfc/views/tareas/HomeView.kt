@@ -99,7 +99,9 @@ fun HomeView(navController: NavController, notesVM : TareasViewModel){
             }
 
             /*Botón para visualizar los contacto*/
-            Button(onClick = {}, modifier = Modifier.fillMaxWidth()
+            Button(onClick = {
+                navController.navigate("AllContacts")
+            }, modifier = Modifier.fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp)) {
 
                 Text(text = "Ver mis contactos")
