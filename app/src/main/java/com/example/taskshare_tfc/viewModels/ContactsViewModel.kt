@@ -117,4 +117,29 @@ class ContactsViewModel : ViewModel() {
                 }
             }
     }
+
+    fun editContact(idContacto : String, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val editContact = hashMapOf(
+                    "names" to state.names,
+                    "email" to state.email,
+                    "address" to state.address,
+                    "phone" to state.phone
+                )
+
+                firestore.collection("Contacts").document(idContacto)
+                    .update(editContact as Map<String, Any>)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }
+                    .addOnFailureListener{e ->
+                        Log.d("Error", "${e.message}")
+                    }
+            }catch (e: Exception){
+                Log.d("Error", "${e.message}")
+            }
+        }
+
+    }
 }

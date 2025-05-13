@@ -114,7 +114,11 @@ fun EditContactView(navController: NavController, contactVM : ContactsViewModel,
 
             /*Botón para editar un contacto*/
             Button(
-                onClick ={},
+                onClick ={
+                    contactVM.editContact(idContact){
+                        navController.popBackStack()
+                    }
+                },
 
 
                 modifier = Modifier
