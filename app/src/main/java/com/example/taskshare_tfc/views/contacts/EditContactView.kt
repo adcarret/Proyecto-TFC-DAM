@@ -117,6 +117,7 @@ fun EditContactView(navController: NavController, contactVM : ContactsViewModel,
                 onClick ={
                     contactVM.editContact(idContact){
                         navController.popBackStack()
+                        Toast.makeText(context, "Contacto actualizado", Toast.LENGTH_SHORT).show()
                     }
                 },
 
@@ -125,6 +126,21 @@ fun EditContactView(navController: NavController, contactVM : ContactsViewModel,
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp)) {
                 Text(text = "Editar contacto")
+
+            }
+
+            //Botón para eliminar contacto
+            Button(onClick = {
+                contactVM.deleteContact(idContact){
+                    navController.popBackStack()
+                    Toast.makeText(context, "Contacto eliminado", Toast.LENGTH_SHORT).show()
+
+                }
+            },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)) {
+                Text(text = "Eliminar contacto")
 
             }
 
