@@ -73,7 +73,7 @@ fun CardContact(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            IconButton(onClick = {}) {
+            IconButton(onClick = {onClick()}) {
 
                 Icon(
                     imageVector = Icons.Default.Edit,
