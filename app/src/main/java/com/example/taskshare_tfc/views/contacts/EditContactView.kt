@@ -1,5 +1,7 @@
 package com.example.taskshare_tfc.views.contacts
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -48,7 +50,7 @@ fun EditContactView(navController: NavController, contactVM : ContactsViewModel,
     val state = contactVM.state
 
     Scaffold(topBar = {
-        TopAppBar(title = { Text(text = "Editar contacto") },
+        TopAppBar(title = { Text(text = "Información del contacto") },
             navigationIcon = {
                 IconButton(onClick = {
                     navController.popBackStack()
@@ -141,6 +143,36 @@ fun EditContactView(navController: NavController, contactVM : ContactsViewModel,
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp)) {
                 Text(text = "Eliminar contacto")
+
+            }
+
+            //Botón para llamadas
+            Button(onClick = {
+                var phoneInt = state.phone.toInt()
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneInt"))//Me permite abrir la app del telefono
+                context.startActivity(intent)
+
+            },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)) {
+                Text(text = "Realizar llamada")
+
+            }
+
+            //Botón para sms
+            Button(onClick = {
+                var phoneInt = state.phone.toInt()
+                val intent = Intent(Intent.ACTION_SENDTO)//Me permite abrir la app del telefono
+                intent.data = Uri.parse("smsto:$phoneInt")
+                intent.putExtra("sms_body", "")
+                context.startActivity(intent)
+
+            },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)) {
+                Text(text = "Enviar SMS")
 
             }
 
