@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.firebaseAuth) //Autenticación de usuarios
     implementation(libs.firebaseFirestore) //Base de datos
     implementation(libs.navigation) //Navegación entre pantallas
+    implementation("com.airbnb.android:lottie-compose:6.1.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
